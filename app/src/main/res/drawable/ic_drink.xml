@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="80dp"
+    android:height="80dp"
+    android:viewportWidth="80"
+    android:viewportHeight="80">
+    <!-- Bottle/can -->
+    <path
+        android:fillColor="#C0C0C0"
+        android:pathData="M30,15 L50,15 L50,60 L30,60 Z"/>
+    <!-- Label -->
+    <path
+        android:fillColor="#FF0000"
+        android:pathData="M32,25 L48,25 L48,45 L32,45 Z"/>
+    <!-- Cap -->
+    <path
+        android:fillColor="#808080"
+        android:pathData="M28,12 L52,12 L52,15 L28,15 Z"/>
+    <!-- Liquid -->
+    <path
+        android:fillColor="#8B0000"
+        android:pathData="M32,30 L48,30 L48,50 L32,50 Z"/>
+</vector>
+

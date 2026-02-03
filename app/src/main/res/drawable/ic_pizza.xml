@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="80dp"
+    android:height="80dp"
+    android:viewportWidth="80"
+    android:viewportHeight="80">
+    <!-- Pizza base -->
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M40,10 Q60,20 70,40 Q60,60 40,70 Q20,60 10,40 Q20,20 40,10 Z"/>
+    <!-- Cheese -->
+    <path
+        android:fillColor="#FFF8DC"
+        android:pathData="M40,15 Q55,22 65,40 Q55,58 40,65 Q25,58 15,40 Q25,22 40,15 Z"/>
+    <!-- Tomato slices -->
+    <path
+        android:fillColor="#FF6347"
+        android:pathData="M 26,35 a 4,4 0 1,1 8,0 a 4,4 0 1,1 -8,0"/>
+    <path
+        android:fillColor="#FF6347"
+        android:pathData="M 46,30 a 4,4 0 1,1 8,0 a 4,4 0 1,1 -8,0"/>
+    <path
+        android:fillColor="#FF6347"
+        android:pathData="M 46,50 a 4,4 0 1,1 8,0 a 4,4 0 1,1 -8,0"/>
+    <!-- Basil leaves -->
+    <path
+        android:fillColor="#228B22"
+        android:pathData="M35,40 Q37,38 39,40 Q37,42 35,40 Z"/>
+    <path
+        android:fillColor="#228B22"
+        android:pathData="M45,45 Q47,43 49,45 Q47,47 45,45 Z"/>
+</vector>
+
