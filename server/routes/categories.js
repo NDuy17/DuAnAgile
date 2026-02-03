@@ -1,7 +1,7 @@
 const express = require('express');
 
 /**
- * Routes API danh mục: GET/POST/PUT/DELETE /api/categories
+ * Routes API danh mục: CRUD, xóa mềm/cứng, đếm sản phẩm
  * @param {object} data - { products, categories }
  * @param {function} persist - Hàm lưu dữ liệu ra file
  */
