@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
         // Firebase
         mAuth = FirebaseAuth.getInstance();
 
-        // View
+        // View binding
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
         btnLogin = findViewById(R.id.btn_login);
@@ -45,8 +45,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser() {
-        String email = etEmail.getText() == null ? "" : etEmail.getText().toString().trim();
-        String password = etPassword.getText() == null ? "" : etPassword.getText().toString().trim();
+        String email = etEmail.getText() != null
+                ? etEmail.getText().toString().trim()
+                : "";
+
+        String password = etPassword.getText() != null
+                ? etPassword.getText().toString().trim()
+                : "";
 
         // Validate
         if (TextUtils.isEmpty(email)) {
@@ -75,34 +80,53 @@ public class LoginActivity extends AppCompatActivity {
 
                     if (task.isSuccessful()) {
                         Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(this, HomeActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                        finish();
+                        navigateByRole(email);
                     } else {
-                        String msg = "Email hoặc mật khẩu không đúng";
-                        if (task.getException() != null) {
-                            String exceptionMsg = task.getException().getMessage();
-                            if (exceptionMsg != null) {
-                                if (exceptionMsg.contains("network")) {
-                                    msg = "Lỗi kết nối mạng. Vui lòng thử lại";
-                                } else if (exceptionMsg.contains("user-not-found")) {
-                                    msg = "Email không tồn tại";
-                                } else if (exceptionMsg.contains("wrong-password")) {
-                                    msg = "Mật khẩu không đúng";
-                                } else {
-                                    msg = exceptionMsg;
-                                }
-                            }
-                        }
-                        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+                        handleLoginError(task.getException());
                     }
                 })
                 .addOnFailureListener(e -> {
                     showLoading(false);
-                    String msg = "Lỗi đăng nhập: " + (e.getMessage() != null ? e.getMessage() : "Vui lòng thử lại");
-                    Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(
+                            this,
+                            "Lỗi đăng nhập: " + (e.getMessage() != null ? e.getMessage() : "Vui lòng thử lại"),
+                            Toast.LENGTH_SHORT
+                    ).show();
                 });
+    }
+
+    private void navigateByRole(String email) {
+        Intent intent;
+
+        if (email.contains("@admin")) {
+            // Tài khoản quản lý
+            intent = new Intent(this, CategoryActivity.class);
+        } else {
+            // Tài khoản người dùng thường
+            intent = new Intent(this, HomeActivity.class);
+        }
+
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    private void handleLoginError(Exception exception) {
+        String msg = "Email hoặc mật khẩu không đúng";
+
+        if (exception != null && exception.getMessage() != null) {
+            String error = exception.getMessage();
+
+            if (error.contains("network")) {
+                msg = "Lỗi kết nối mạng. Vui lòng thử lại";
+            } else if (error.contains("user-not-found")) {
+                msg = "Email không tồn tại";
+            } else if (error.contains("wrong-password")) {
+                msg = "Mật khẩu không đúng";
+            }
+        }
+
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     private void showLoading(boolean isLoading) {
